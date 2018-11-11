@@ -5,7 +5,7 @@ res = requests.get("https://www.basketball-reference.com/teams/TOR/2019.html",he
 soup = BeautifulSoup(res.text, 'lxml')
 for comment in soup.find_all(string=lambda text:isinstance(text,Comment)):
     data = BeautifulSoup(comment,"lxml")
-    for items in data.select("table tr"):
-        tds = [item.get_text(strip=True) for item in items.select("th,td")]
-        if tds[0] == "Team" or tds[0] == "Opponent":
-        	print(tds)
+    x = data.find("table", id="team_and_opponent")
+    if x != None:
+    	for tag in x.find_all("td"):
+    		print(tag.contents)
