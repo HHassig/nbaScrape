@@ -7,5 +7,14 @@ for comment in soup.find_all(string=lambda text:isinstance(text,Comment)):
     data = BeautifulSoup(comment,"lxml")
     x = data.find("table", id="team_and_opponent")
     if x != None:
-    	for tag in x.find_all("td"):
-    		print(tag.contents)
+    	total = []
+    	header = []
+    	for tag1 in x.find_all("th"):
+    		header += [tag1.contents]
+    	for tag in x.find_all("tr"):
+    		rows = []
+    		for tag2 in tag.find_all("td"):
+    			rows += [tag2.contents]
+    		total += [rows]
+print(total)
+print(header)
