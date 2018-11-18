@@ -9,7 +9,9 @@ def stripHTML(aTag):
 
 # Pre Work
 teams = ["ATL", "BOS", "BRK", "CHO", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHO", "POR", "SAC", "SAS", "TOR", "UTA", "WAS"]
-
+teams = ["LAL", "GSW"]
+everyTeam = []
+everyPlayer = []
 for teamID in range(len(teams)):
 	time.sleep(10)
 	# Visit page and scrape
@@ -50,14 +52,25 @@ for teamID in range(len(teams)):
 				allPlayerStats += [rows]
 
 	# Finalize and clean data
-	teamHeader.pop(0)
+	print(len(teamHeader))
+	print(len(allTeamStats[2]))
 	for i in range(0, 8):
 		teamHeader.pop()
+	for i in range(0, 17):
+		teamHeader.pop(0)
+	for i in range(0, 15):
+		allTeamStats[2].pop(0)
+		allTeamStats[6].pop(0)
+	teamHeader.pop(5)
+	allTeamStats[2].pop(5)
+	allTeamStats[6].pop(5)
 	team = PrettyTable()
 	team.field_names = teamHeader
-	team.add_row(allTeamStats[1])
-	team.add_row(allTeamStats[5])
+	team.add_row(allTeamStats[2])
+	team.add_row(allTeamStats[6])
 	print(team)
+	everyTeam += [allTeamStats[1], allTeamStats[5]]
+
 
 	allPlayerStats.pop(0)
 	playerHeader.pop(0)
@@ -75,4 +88,7 @@ for teamID in range(len(teams)):
 	player.field_names = playerHeader
 	for i in range(len(allPlayerStats)):
 		player.add_row(allPlayerStats[i])
-	print(player)
+		everyPlayer += [allPlayerStats[i]]
+	# print(player)
+print(everyTeam)
+print(everyPlayer)
